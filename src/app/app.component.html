@@ -1,9 +1,9 @@
 <body>
 <h1>Calculadora</h1>
-<form [formGroup]="form">
-  <ul formArrayName="visores" *ngFor="let resultado of visores; let i = index;">
-    <li formControlName="{{i}}">
-      <app-visor [valor]="form.get(['visores', i])!.value" class="visor-resultado"></app-visor>
+<form [formGroup]="form" style="border: solid antiquewhite; width: 40vw">
+  <ul class="list" formArrayName="history" *ngFor="let history of historyValues; let i = index;">
+    <li class="list" *ngIf="form.get(['history', i])!.value" formControlName="{{i}}">
+      <app-visor [valor]="historyValueByIndex(i)" class="visor-resultado"></app-visor>
     </li>
   </ul>
 </form>
@@ -34,7 +34,8 @@
   <app-botao [escrito]="'√'" (saida)="btnActionClicked($event)"></app-botao>
   <app-botao [escrito]="'⌫'" (saida)="btnActionClicked($event)"></app-botao>
 
-  <app-botao [escrito]="'='" (saida)="btnEqualClicked($event)"></app-botao>
+  <app-botao [escrito]="'='" (saida)="btnEqualsClicked()"></app-botao>
+  <app-botao [escrito]="'C'" (saida)="btnClearClicked()"></app-botao>
 </div>
 
 </body>

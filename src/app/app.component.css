@@ -22,3 +22,9 @@
   height: 10vh;
   font-size: 4vh;
 }
+
+.list {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}

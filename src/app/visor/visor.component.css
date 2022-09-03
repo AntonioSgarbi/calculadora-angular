@@ -1,0 +1,14 @@
+.wrapper-input {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  background-color: black;
+  height: 10vh;
+  width: 40vw;
+  margin: 0.5% 0;
+}
+
+.input {
+  color: wheat;
+  font-size: 5vh;
+}
