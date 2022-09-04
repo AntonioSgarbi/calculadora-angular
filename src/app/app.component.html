@@ -1,41 +1,44 @@
 <body>
+
 <h1>Calculadora</h1>
-<form [formGroup]="form" style="border: solid antiquewhite; width: 40vw">
-  <ul class="list" formArrayName="history" *ngFor="let history of historyValues; let i = index;">
-    <li class="list" *ngIf="form.get(['history', i])!.value" formControlName="{{i}}">
-      <app-visor [valor]="historyValueByIndex(i)" class="visor-resultado"></app-visor>
-    </li>
-  </ul>
-</form>
+
+<div class="wrapper-results" *ngFor="let resultado of results">
+  <p>{{resultado.input}}</p>
+  <p>=</p>
+  <p>{{resultado.output}}</p>
+</div>
 
 <input type="text" [(ngModel)]="input" class="input">
 
 <div class="div-numeros">
-  <app-botao [escrito]="'0'" (saida)="btnNumberClicked($event)"></app-botao>
-  <app-botao [escrito]="'1'" (saida)="btnNumberClicked($event)"></app-botao>
-  <app-botao [escrito]="'2'" (saida)="btnNumberClicked($event)"></app-botao>
-  <app-botao [escrito]="'3'" (saida)="btnNumberClicked($event)"></app-botao>
-  <app-botao [escrito]="'4'" (saida)="btnNumberClicked($event)"></app-botao>
-  <app-botao [escrito]="'5'" (saida)="btnNumberClicked($event)"></app-botao>
-  <app-botao [escrito]="'6'" (saida)="btnNumberClicked($event)"></app-botao>
-  <app-botao [escrito]="'7'" (saida)="btnNumberClicked($event)"></app-botao>
-  <app-botao [escrito]="'8'" (saida)="btnNumberClicked($event)"></app-botao>
-  <app-botao [escrito]="'9'" (saida)="btnNumberClicked($event)"></app-botao>
-  <app-botao [escrito]="'.'" (saida)="btnNumberClicked($event)"></app-botao>
+  <button (click)="btnNumberClicked($event.target)">0</button>
+  <button (click)="btnNumberClicked($event.target)">1</button>
+  <button (click)="btnNumberClicked($event.target)">2</button>
+  <button (click)="btnNumberClicked($event.target)">3</button>
+  <button (click)="btnNumberClicked($event.target)">4</button>
+  <button (click)="btnNumberClicked($event.target)">5</button>
+  <button (click)="btnNumberClicked($event.target)">6</button>
+  <button (click)="btnNumberClicked($event.target)">7</button>
+  <button (click)="btnNumberClicked($event.target)">8</button>
+  <button (click)="btnNumberClicked($event.target)">9</button>
 
-  <app-botao [escrito]="'%'" (saida)="btnActionClicked($event)"></app-botao>
-  <app-botao [escrito]="'+'" (saida)="btnActionClicked($event)"></app-botao>
-  <app-botao [escrito]="'-'" (saida)="btnActionClicked($event)"></app-botao>
-  <app-botao [escrito]="'/'" (saida)="btnActionClicked($event)"></app-botao>
-  <app-botao [escrito]="'*'" (saida)="btnActionClicked($event)"></app-botao>
-  <app-botao [escrito]="'('" (saida)="btnActionClicked($event)"></app-botao>
-  <app-botao [escrito]="')'" (saida)="btnActionClicked($event)"></app-botao>
-  <app-botao [escrito]="'x²'" (saida)="btnActionClicked($event)"></app-botao>
-  <app-botao [escrito]="'√'" (saida)="btnActionClicked($event)"></app-botao>
-  <app-botao [escrito]="'⌫'" (saida)="btnActionClicked($event)"></app-botao>
+  <button (click)="btnActionClicked($event.target)">+</button>
+  <button (click)="btnActionClicked($event.target)">-</button>
+  <button (click)="btnActionClicked($event.target)">*</button>
+  <button (click)="btnActionClicked($event.target)">/</button>
 
-  <app-botao [escrito]="'='" (saida)="btnEqualsClicked()"></app-botao>
-  <app-botao [escrito]="'C'" (saida)="btnClearClicked()"></app-botao>
+  <button (click)="btnActionClicked($event.target)">%</button>
+
+  <button (click)="btnActionClicked($event.target)">(</button>
+  <button (click)="btnActionClicked($event.target)">)</button>
+
+  <button (click)="btnActionClicked($event.target)">x²</button>
+  <button (click)="btnActionClicked($event.target)">⌫</button>
+  <button (click)="btnActionClicked($event.target)">√</button>
+
+  <button (click)="btnClearClicked()">C</button>
+
+  <button (click)="btnEqualsClicked()">=</button>
 </div>
 
 </body>

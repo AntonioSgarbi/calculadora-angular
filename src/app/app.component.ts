@@ -1,5 +1,14 @@
-import {Component, NgIterable} from '@angular/core';
-import {FormArray, FormControl, FormGroup} from "@angular/forms";
+import {Component} from '@angular/core';
+
+class Sentence {
+  input: string;
+  output: number;
+
+  constructor(input: string, output: number) {
+    this.input = input;
+    this.output = output;
+  }
+}
 
 @Component({
   selector: 'app-root',
@@ -10,64 +19,44 @@ export class AppComponent {
   title = 'calculadora';
   input: string = '';
 
-  valorVisivel?: string;
-  valorCalculado?: string;
+  results: Sentence[] = [];
 
-  form: FormGroup;
+  constructor() { }
 
-  get historyValues(): string[] {
-    return this.form.get('history')?.value
-  }
-
-  get historyForms() {
-    return this.form.get('history') as (FormArray & NgIterable<FormArray>) | undefined | null
-  }
-
-  constructor() {
-    this.form = new FormGroup({
-      "history": new FormArray(new Array<FormControl>())
-    });
-  }
-
-  historyValueByIndex(index: number): string {
-    return this.form.get(['history', index])!.value
-  }
-
-  historyControlByIndex(index: number): FormControl {
-    return this.form.get(['history', index]) as FormControl
-  }
-
-  btnNumberClicked(evento: string) {
-    console.log(this.historyValues)
-    this.input += evento;
+  btnNumberClicked(target: any) {
+    console.log(target.innerHTML)
+    this.input += target.innerHTML;
   }
 
   btnEqualsClicked() {
-    let array = this.historyForms
-
-    this.valorVisivel = this.input;
-
-    this.valorVisivel.concat(this.valorCalculado!)
-    this.valorVisivel.concat(' = ')
-
-    if(array?.length == 0) {
-      array!.push(new FormControl())
-      console.log(array)
-
-      this.historyControlByIndex(0).patchValue(this.valorVisivel)
-
-      console.log(this.historyControlByIndex(0))
-
-    } else {
-      array!.push(new FormControl(this.valorVisivel))
-    }
+    let entradas = this.input.split(' ');
+    let result = this.calculate(parseFloat(entradas[0]), parseFloat(entradas[2]), entradas[1]);
+    this.results.push(new Sentence(this.input, result));
 
     this.input = '';
-    this.valorVisivel = '';
   }
 
-  btnActionClicked(action: string) {
+  calculate(first: number, second: number, action: string): number {
+
     switch (action) {
+      case '+':
+        return first + second;
+      case '-':
+        return first - second;
+      case '*':
+        return first * second;
+      case '/':
+        return first / second;
+      case '⌫':
+        this.input = this.input.substring(0, this.input.length - 1);
+        break;
+    }
+
+    return 0;
+  }
+
+  btnActionClicked(target: any) {
+    switch (target.innerHTML) {
       case '+':
         this.input += ' + '
         break;
@@ -97,6 +86,7 @@ export class AppComponent {
   }
 
   btnClearClicked() {
-    this.form.reset();
+    this.results = [];
+    this.input = '';
   }
 }
